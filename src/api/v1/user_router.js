@@ -9,7 +9,11 @@ router.get('/:id', (req, res, next) => {
     res.send(user);
   }).catch((ex) => {
     console.log(ex);
-    res.status(400).send(ex.message);
+    if (ex.errorId !== undefined) {
+      res.status(400).send(ex);
+    } else {
+      res.status(500).send(ex.message);
+    }
   })
 });
 
