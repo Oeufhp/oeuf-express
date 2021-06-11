@@ -8,5 +8,10 @@ exports.get_user = async (id) => {
     throw new ErrorItem({errorId: 1, message: "ID must be integer"});
   }
   const user = await user_adapter.get_user(id);
+
+  if (!Number.isInteger(user.id)) {
+    return null;
+  }
+
   return user;
 };
