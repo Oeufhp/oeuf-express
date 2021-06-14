@@ -1,4 +1,4 @@
-#Sertis Backend NodeJS Template for Starter
+# Sertis Backend NodeJS Template for Starter
 The pattern which is used in this template is based on Clean Architecture and Hexagonal Architecture. 
 This template is just a guideline and minimum required for Sertis Backend NodeJS project, so it's lightweight. 
 Feel free to change/install necessary the NPM packages. Feedback and improvement are very welcome.
@@ -15,7 +15,7 @@ Example of Hexagonal Architecture:
 
 <img src="https://miro.medium.com/max/1050/1*NfFzI7Z-E3ypn8ahESbDzw.png" alt="Hexagonal Architecture" width="500"/>
 
-###Folder Structure
+### Folder Structure
 `src` folder is the main folder to store the source code. There are 4 sub-folders inside are as follows:
 * `adapters` - is the data source layer that manages external dependencies and converts/maps external data to models (entities). 
 * `api` - is one of the transport layer (this project based on Backend API) if there is any other transport layer. new folders can be created e.g., message_queue, sqs. 
@@ -23,15 +23,15 @@ Example of Hexagonal Architecture:
 * `models` - is the entities layer that will be used in the project.
 * `services` - is the business logic layer that allows to work only with models. Business logic validations are also implemented in this layer.
 
-###Domain
+### Domain
 * `model` is similar to entities in Clean/Hexagonal Architecture
 * `service` is similar to interactors or use cases in Clean/Hexagonal Architecture
 * `adapter` is similar to repositories or gateways in Clean/Hexagonal Architecture
 
-###API Versioning
+### API Versioning
 We recommend always implement versioning for the API. However, the solutions to approach API version depends on each project.
 
-###Example
+### Example
 This template contains an example of an API call to get a user by id
 - Client calls `GET` to `v1/user/:id`
 - As in `app.js` the route start from `src/api/index.js` which contains all the version of the API 
