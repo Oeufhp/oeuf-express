@@ -1,12 +1,11 @@
-const error_handler = ({ex, res}) => {
-  if (ex.errorId !== undefined) {
-    console.log(ex);
-    res.status(400).send(ex);
+const error_handler = (err, req, res, next) => {
+  if (err.errorId !== undefined) {
+    console.log(err);
+    res.status(400).send(err);
   } else {
-    console.error(ex);
-    res.status(500).send(ex.message);
+    console.error(err);
+    res.status(500).send(err.message);
   }
 }
-
 
 module.exports = error_handler;
