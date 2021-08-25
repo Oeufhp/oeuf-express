@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const bcrypt = require("bcrypt")
+const auth = require("../middlewares/auth")
 const user_service = require("../../services/user_service")
 const error_handler = require("../middlewares/error_handler")
 const { User } = require("../../models/user_model")
@@ -8,6 +9,11 @@ const { User } = require("../../models/user_model")
 router.get("/", async (req, res) => {
 	const users = await User.find().sort("email")
 	res.send(users)
+})
+
+router.post("/me", auth, async (req, res) => {
+	const user = await User.findById(req.body.user._id).select("-password")
+	res.send(user)
 })
 
 router.post("/", async (req, res) => {
@@ -31,7 +37,8 @@ router.post("/", async (req, res) => {
 	} catch (err) {
 		return error_handler(error, req, res)
 	}
-
+	const token = user.generateAuthToken()
+	res.header("x_auth_token", token)
 	res.send(user)
 })
 

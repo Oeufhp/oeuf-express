@@ -4,8 +4,14 @@ const cookieParser = require("cookie-parser")
 const logger = require("morgan")
 const mongoose = require("mongoose")
 const indexRouter = require("./src/api/index")
+const config = require("config")
 const app = express()
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 8888
+
+if (!config.get("jwtPrivateKey")) {
+	console.error("Missing JWT private key")
+	process.exit(1)
+}
 
 mongoose
 	.connect("mongodb://admin:password@localhost/database?authSource=admin", { useUnifiedTopology: true, useNewUrlParser: true })
