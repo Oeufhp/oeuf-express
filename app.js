@@ -1,18 +1,24 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const express = require("express")
+const path = require("path")
+const cookieParser = require("cookie-parser")
+const logger = require("morgan")
+const mongoose = require("mongoose")
+const indexRouter = require("./src/api/index")
+const app = express()
+const port = process.env.PORT || 4000
 
-var indexRouter = require('./src/api/index');
+mongoose
+	.connect("mongodb://admin:password@localhost/database?authSource=admin", { useUnifiedTopology: true, useNewUrlParser: true })
+	.then(() => console.log("Connected to MongoDB..."))
+	.catch(err => console.log("Error connecting to MongoDB...", err))
 
-var app = express();
+app.use(logger("dev"))
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(express.static(path.join(__dirname, "public")))
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/", indexRouter)
+app.listen(port, () => console.log(`Server running on port ${port}`))
 
-app.use('/', indexRouter);
-
-module.exports = app;
+module.exports = app
