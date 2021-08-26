@@ -5,24 +5,33 @@ const auth = require("../middlewares/auth")
 const user_service = require("../../services/user_service")
 const error_handler = require("../middlewares/error_handler")
 const { User } = require("../../models/user_model")
+const user_adapter = require("../../adapters/db/user_adapter")
+const asyncMiddleware = require("../middlewares/async")
 
-router.get("/", async (req, res) => {
-	const users = await User.find().sort("email")
-	res.send(users)
-})
+router.get(
+	"/",
+	asyncMiddleware(async (req, res) => {
+		const users = await user_adapter.list_users()
+		res.send(users)
+	})
+)
 
-router.post("/me", auth, async (req, res) => {
-	const user = await User.findById(req.body.user._id).select("-password")
-	res.send(user)
-})
+router.post(
+	"/me",
+	auth,
+	asyncMiddleware(async (req, res) => {
+		const user = await User.findById(req.body.user._id).select("-password")
+		res.send(user)
+	})
+)
 
 router.post("/", async (req, res) => {
 	const { error } = user_service.validateUser(req.body)
 	if (error) {
-		error_handler(error, req, res)
+		res.status(400).send(error)
 	}
 
-	let user = await User.findOne({ email: req.body.email })
+	let user = await user_adapter.get_user(req.body.email)
 	if (user) res.status(400).send({ error: "User already exists" })
 
 	user = new User({

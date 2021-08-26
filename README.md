@@ -1,15 +1,4 @@
-Example of Clean Architecture:
-
-- https://medium.com/swlh/clean-architecture-a-little-introduction-be3eac94c5d1
-- https://www.oncehub.com/blog/explaining-clean-architecture
-
-<img src="https://miro.medium.com/max/1050/1*cgJSwLqnHvY5nrhdu4AsFA.jpeg" alt="Clean Architecture" width="500"/>
-
-Example of Hexagonal Architecture:
-
-- https://netflixtechblog.com/ready-for-changes-with-hexagonal-architecture-b315ec967749
-
-<img src="https://miro.medium.com/max/1050/1*NfFzI7Z-E3ypn8ahESbDzw.png" alt="Hexagonal Architecture" width="500"/>
+[![wakatime](https://wakatime.com/badge/github/Oeufhp/oeuf-express.svg)](https://wakatime.com/badge/github/Oeufhp/oeuf-express)
 
 ### Folder Structure
 
